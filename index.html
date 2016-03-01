@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- CSS Imports -->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <div id="intro">
+        <h1 id="heading"></h1>
+        <p id="text">.</p>
+        <p id="text2">.</p>
+        <p id="result">.</p>
+      </div>
+
+      <button id='button_previous'>
+        <p>Previous</p>
+      </button>
+      <button id='button_next'>
+        <p>Next</p>
+      </button>
+
+
+    </div>
+    <!-- Map -->
+    <div id="map" class="map">
+    <!-- Legend -->
+    <div class="legend" id='legend1'>
+      <div class='box' id="mon">
+        <p class='day'><20000</p>
+      </div>
+      <div class='box' id="tue">
+        <p class='day'>20000~30000</p>
+      </div>
+      <div class='box' id="wed">
+        <p class='day'>30000~40000</p>
+      </div>
+      <div class='box' id="thu">
+        <p class='day'>40000~50000</p>
+      </div>
+      <div class='box' id="fri">
+        <p class='day'>>50000</p>
+      </div>
+    </div>
+
+    <div class="legend" id='legend2'>
+      <div class='box' id="mon">
+        <p class='day'><3</p>
+      </div>
+      <div class='box' id="tue">
+        <p class='day'>3~6</p>
+      </div>
+      <div class='box' id="wed">
+        <p class='day'>6~10</p>
+      </div>
+      <div class='box' id="thu">
+        <p class='day'>10~20</p>
+      </div>
+      <div class='box' id="fri">
+        <p class='day'>>20</p>
+      </div>
+    </div>
+
+    <div class="legend" id='legend4'>
+      <div class='box' id="mon">
+        <p class='day'><50</p>
+      </div>
+      <div class='box' id="tue">
+        <p class='day'>50~70</p>
+      </div>
+      <div class='box' id="wed">
+        <p class='day'>70~100</p>
+      </div>
+      <div class='box' id="thu">
+        <p class='day'>100~130</p>
+      </div>
+      <div class='box' id="fri">
+        <p class='day'>>130</p>
+      </div>
+    </div>
+
+    </div>
+    <!-- Javascript Imports -->
+    <script src="js/jquery-2.2.0.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/leaflet.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
