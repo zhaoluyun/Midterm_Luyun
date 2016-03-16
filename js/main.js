@@ -19,7 +19,7 @@ var Stamen_TonerLite = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{
 ===================== */
 var dataset = 'https://raw.githubusercontent.com/zhaoluyun/datasets/master/geojson/housingprice_Beijing.geojson';
 
-
+var myData;
 
 
 var layer1 = [];
@@ -27,6 +27,8 @@ var layer2 = [];
 var layer3 = [];
 var layer4 = [];
 var layer5 = [];
+
+
 
 
 
@@ -62,6 +64,7 @@ setslideOne = function() {
     fillOpacity: 0.8,
 };
   var eachFeature = function(feature, layer) {
+    layer.bindPopup(feature.properties.name + ': ' +feature.properties.totalprice + ' (10000RMB)');
     layer.on('click', function (e) {
     $('#result').text("The price of this property is: " + feature.properties.priceperm2 +' (RMB/square meter)');
     });
@@ -71,20 +74,23 @@ setslideOne = function() {
     return true;
     }
   };
-  $(document).ready(function() {
-    $.ajax(dataset).done(function(data) {
-      var parsedData = JSON.parse(data);
-      layer1= L.geoJson(parsedData, {
-          onEachFeature: eachFeature,
-          filter: myFilter,
-          style: myStyle,
-          pointToLayer: function (feature, latlng) {
-              return L.circleMarker(latlng, geojsonMarkerOptions);
-          }
-      }).addTo(map);
-    });
 
+  $(document).ready(function() {
+  $.ajax(dataset).done(function(result) {
+    var parsed = JSON.parse(result);
+    myData = _.chain(parsed).value();
+    layer1= L.geoJson(myData, {
+        onEachFeature: eachFeature,
+        filter: myFilter,
+        style: myStyle,
+        pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, geojsonMarkerOptions);
+        }
+    }).addTo(map);
   });
+});
+
+
   $('#button_next').off();
   $('#button_next').click(function(){setslideTwo();});
   $('#legend1').show();
@@ -95,6 +101,7 @@ setslideOne = function() {
 };
 
 setslideOne();
+
 
 
 setslideTwo = function() {
@@ -129,6 +136,7 @@ setslideTwo = function() {
     fillOpacity: 0.8,
   };
   var eachFeature = function(feature, layer) {
+    layer.bindPopup(feature.properties.name + ': ' +feature.properties.floor + 'th floor');
     layer.on('click', function (e) {
     $('#result').text("The floor of this property is: " + feature.properties.floor);
     });
@@ -138,10 +146,9 @@ setslideTwo = function() {
     return true;
     }
   };
-  $(document).ready(function() {
-    $.ajax(dataset).done(function(data) {
-      var parsedData = JSON.parse(data);
-      layer2 = L.geoJson(parsedData, {
+
+
+      layer2 = L.geoJson(myData, {
           onEachFeature: eachFeature,
           filter: myFilter,
           style: myStyle,
@@ -149,8 +156,8 @@ setslideTwo = function() {
               return L.circleMarker(latlng, geojsonMarkerOptions);
           }
       }).addTo(map);
-    });
-  });
+
+
   $('#button_previous').show();
   $('#button_next').off();
   $('#button_next').click(function(){setslideThree();});
@@ -194,6 +201,7 @@ setslideThree = function() {
     fillOpacity: 0.8,
   };
   var eachFeature = function(feature, layer) {
+    layer.bindPopup(feature.properties.name + ': built in ' +feature.properties.yearbuilt);
     layer.on('click', function (e) {
     $('#result').text("The built-year of this property is: " + feature.properties.yearbuilt);
     });
@@ -203,10 +211,9 @@ setslideThree = function() {
     return true;
     }
   };
-  $(document).ready(function() {
-    $.ajax(dataset).done(function(data) {
-      var parsedData = JSON.parse(data);
-      layer3 = L.geoJson(parsedData, {
+
+
+      layer3 = L.geoJson(myData, {
           onEachFeature: eachFeature,
           filter: myFilter,
           style: myStyle,
@@ -214,8 +221,8 @@ setslideThree = function() {
               return L.circleMarker(latlng, geojsonMarkerOptions);
           }
       }).addTo(map);
-    });
-  });
+
+
   $('#button_next').off();
   $('#button_next').click(function(){setslideFour();});
   $('#button_previous').off();
@@ -258,6 +265,7 @@ setslideFour = function() {
     fillOpacity: 0.8,
   };
   var eachFeature = function(feature, layer) {
+    layer.bindPopup(feature.properties.name + ': ' +feature.properties.area + ' (square meters)');
     layer.on('click', function (e) {
     $('#result').text("The area of this property is: " + feature.properties.area + " square meters");
     });
@@ -267,10 +275,9 @@ setslideFour = function() {
     return true;
     }
   };
-  $(document).ready(function() {
-    $.ajax(dataset).done(function(data) {
-      var parsedData = JSON.parse(data);
-      layer4 = L.geoJson(parsedData, {
+
+
+      layer4 = L.geoJson(myData, {
           onEachFeature: eachFeature,
           filter: myFilter,
           style: myStyle,
@@ -278,8 +285,8 @@ setslideFour = function() {
               return L.circleMarker(latlng, geojsonMarkerOptions);
           }
       }).addTo(map);
-    });
-  });
+
+
   $('#button_next').show();
   $('#button_next').off();
   $('#button_next').click(function(){setslideFive();});
@@ -311,17 +318,15 @@ setslideFive = function() {
     }
   };
   map.setView([39.986381, 116.382312], 12);
-  $(document).ready(function() {
-    $.ajax(dataset).done(function(data) {
-      var parsedData = JSON.parse(data);
-      layer5 = L.geoJson(parsedData, {
+
+
+      layer5 = L.geoJson(myData, {
           filter: myFilter,
           pointToLayer: function (feature, latlng) {
               return L.circleMarker(latlng, geojsonMarkerOptions);
           }
       }).addTo(map);
-    });
-  });
+
   $('#button_next').hide();
   $('#button_previous').off();
   $('#button_previous').click(function(){setslideFour();});

@@ -37,6 +37,8 @@ body {
   z-index: 2000;
   margin-left:50px;
   margin-top: 30px;
+  width: 120px;
+  padding:10px;
 }
 
 .box {
